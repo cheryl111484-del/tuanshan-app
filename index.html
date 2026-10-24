@@ -1,0 +1,698 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=5"><title>團膳管理小管家 V7.5｜全站表格標題深色修正版</title><style>:root{font-family:system-ui,-apple-system,'Noto Sans TC',sans-serif;color:#23362e;background:#f5f8f5}*{box-sizing:border-box}body{margin:0}header{background:#fff;border-bottom:1px solid #dce6dc;position:sticky;top:0;z-index:2}header>div{max-width:900px;margin:auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}header b{font-size:19px}.nav{display:flex;gap:6px}main{max-width:900px;margin:22px auto;padding:0 14px 40px}h1{font-size:23px}h2{font-size:18px}.card{background:white;border:1px solid #dfe8df;border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 3px 15px #163b2210}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid .tile{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:8px}.grid .tile span{display:block}.section-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.section-nav button{width:100%;min-height:44px}.tile{padding:23px 15px;text-align:left;min-height:110px}.tile b{display:block;font-size:17px}.tile span,.muted,small{color:#66766a;font-size:13px}button{border:1px solid #b9cdbd;border-radius:10px;padding:10px 13px;background:#fff;color:#245c39;font-size:14px;cursor:pointer}button.primary{background:#237b4b;color:white;border-color:#237b4b}button.danger{color:#a83d3d;border-color:#efcccc}button:disabled{opacity:.45;cursor:not-allowed}input,textarea,select{width:100%;border:1px solid #bfcfc1;border-radius:9px;padding:11px;font:inherit;background:white;color:#23362e}label{font-size:14px;font-weight:650;display:block;margin-bottom:5px}.field{margin-bottom:13px}.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.hidden{display:none!important}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.item{padding:15px 0;border-top:1px solid #e3ebe4}.stat{background:#eff8f0;border-radius:12px;padding:13px;margin:10px 0}.stat strong{font-size:20px;color:#146f3d}.warn{color:#a45312}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px solid #e2eae3;padding:10px 8px;text-align:right;white-space:nowrap}td:first-child,th:first-child{text-align:left}.ingredient{border:1px solid #d9e7da;border-radius:12px;padding:14px;margin:10px 0;background:#fbfdfb}.ingredient header{position:static;border:0;background:none}.topline{display:flex;justify-content:space-between;align-items:center;gap:8px}.pill{border-radius:99px;background:#e8f4e9;color:#246c3b;padding:4px 9px;font-size:12px}.note{font-size:13px;line-height:1.65;color:#58675b}@media(max-width:380px){.grid{gap:8px}.grid .tile{padding:14px 10px;min-height:118px}.grid .tile b{font-size:15px}.grid .tile span{font-size:12px}}@media(max-width:560px){header>div{align-items:flex-start}header b{font-size:16px}.nav button{padding:8px;font-size:12px}.row{grid-template-columns:1fr}.triple{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:14px}h1{font-size:21px}}/* V3.4 compact expandable history */
+.history-entry{border:1px solid #dce8dd;border-radius:12px;margin:10px 0;overflow:hidden;background:#fff}
+.history-entry summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;background:#f5faf5}
+.history-entry summary::-webkit-details-marker{display:none}
+.history-entry summary:focus-visible{outline:3px solid #4b9a6b;outline-offset:-3px}
+.history-name{display:inline-block;font-size:14px;font-weight:700;color:#245c39;line-height:1.4}
+.history-meta{font-size:12px;color:#66766a;white-space:nowrap}
+.history-chevron{font-size:12px;color:#427553;transition:transform .15s}
+.history-entry[open] .history-chevron{transform:rotate(180deg)}
+.history-content{padding:12px}
+@media(max-width:560px){.history-entry summary{padding:10px}.history-meta{white-space:normal;text-align:right}}
+.category-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.category-tabs button{padding:7px 11px;border-radius:9px;font-size:13px;min-height:34px;border:1px solid #cadbd0;background:#fff;color:#254637;cursor:pointer}.category-tabs button.active{background:#276749;color:#fff;border-color:#276749}.category-tabs button:focus-visible{outline:3px solid #e0ad4c;outline-offset:2px}
+/* V5.2 compact ingredient editor: narrow two-column tiles */
+.ingredient-compact{padding:10px;margin:8px 0;border-radius:10px}
+.ingredient-compact .topline{margin-bottom:8px}
+.ingredient-compact .topline button{padding:5px 9px;font-size:12px}
+.ingredient-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 9px}
+.ingredient-fields>.field{margin:0;min-width:0}
+.ingredient-fields>.field-name,.ingredient-fields>.live{grid-column:1/-1}
+.ingredient-fields>.ingredient-quantities{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.ingredient-compact label{font-size:12px;margin-bottom:3px;line-height:1.3}
+.ingredient-compact input,.ingredient-compact select{padding:8px 7px;font-size:14px;min-width:0;border-radius:7px}
+.ingredient-compact .live{margin:2px 0 0;padding:8px;font-size:12px;line-height:1.5}
+@media(max-width:430px){.ingredient-fields>.ingredient-quantities{grid-template-columns:repeat(2,minmax(0,1fr))}.ingredient-quantities>.field:last-child{grid-column:1/-1}.ingredient-compact{padding:9px}}
+
+/* V5.9: Fix the bright white table header row highlighted in the screenshot */
+html[data-theme="dark"] #historyList .history-content table th,
+html[data-theme="dark"] #historyList .history-content table thead th,
+html[data-theme="dark"] #historyList .history-content table tr:first-child th {
+  background:linear-gradient(180deg,#304b5b 0%,#233c4b 100%) !important;
+  background-color:#294454 !important;
+  color:#eaf5f8 !important;
+  border-top:1px solid #5c7888 !important;
+  border-bottom:2px solid #132b39 !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -2px 2px rgba(0,0,0,.18),0 3px 7px rgba(0,0,0,.2) !important;
+  text-shadow:0 1px 1px rgba(0,0,0,.5);
+  font-weight:750;
+}
+html[data-theme="dark"] #historyList .tablewrap {
+  border:1px solid #415e6e;
+  border-radius:9px;
+  overflow:auto;
+  background:#192b38;
+}
+html[data-theme="dark"] #historyList .history-content table td {
+  background:#192f3d;
+  color:#e1eef2;
+}
+html[data-theme="dark"] #historyList .history-content table tr:nth-child(odd) td {
+  background:#1c3442;
+}
+</style><style>
+.cost-list{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.cost-entry{border:1px solid #dce8dd;border-radius:10px;background:#fff;overflow:hidden}
+.cost-entry>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;min-height:42px;font-size:14px}
+.cost-entry>summary::-webkit-details-marker{display:none}
+.cost-entry>summary .history-name{font-size:14px;font-weight:650}
+.cost-entry>summary .history-meta{font-size:12px;color:#69776c;text-align:right;white-space:nowrap}
+.cost-entry[open]>summary{background:#edf7ef;border-bottom:1px solid #dce8dd}
+.cost-content{padding:12px}
+.cost-content .stat{margin-top:0}
+@media(max-width:560px){.cost-entry>summary{padding:9px 10px}.cost-entry>summary .history-meta{font-size:11px}}
+.price-filter{margin:12px 0;padding:12px;background:#f3f8f3;border-radius:10px}.budget-editor{border-top:1px solid #dce8dd;margin-top:10px;padding-top:10px}.budget-editor .row{align-items:end}.budget-editor input{max-width:180px}.budget-pill{font-size:12px;color:#41644a}.cost-entry>summary{min-height:38px;padding:8px 10px}@media(max-width:560px){.budget-editor input{max-width:100%}}
+.category-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.category-tabs button{padding:7px 11px;border-radius:9px;font-size:13px;min-height:34px;border:1px solid #cadbd0;background:#fff;color:#254637;cursor:pointer}.category-tabs button.active{background:#276749;color:#fff;border-color:#276749}.category-tabs button:focus-visible{outline:3px solid #e0ad4c;outline-offset:2px}</style><style>/* V5.4 新增菜色食材明細：真正的小方格 */
+#form .ingredient-compact{padding:9px 10px;margin:7px 0;border-radius:9px}
+#form .ingredient-compact .topline{margin-bottom:5px}
+#form .ingredient-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#form .ingredient-fields>.field{grid-column:auto;margin:0;min-width:0}
+#form .ingredient-fields>.field-name{grid-column:1/-1}
+#form .ingredient-fields>.ingredient-quantities{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#form .ingredient-compact label{font-size:11px;margin:0 0 3px;line-height:1.3;min-height:15px}
+#form .ingredient-compact input,#form .ingredient-compact select{padding:6px 5px;font-size:13px;min-height:34px}
+#form .ingredient-fields>.live{grid-column:1/-1;margin:0;padding:6px 8px;font-size:11px}
+@media(max-width:620px){#form .ingredient-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}#form .ingredient-fields>.ingredient-quantities{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}#form .ingredient-quantities>.field:last-child{grid-column:auto}#form .ingredient-compact{padding:8px}#form .ingredient-compact label{font-size:11px}}
+</style><style>/* V5.5 每種食材為獨立橫排小卡 */
+#form #ingredientList{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;align-items:start}
+#form #ingredientList>.ingredient{min-width:0;margin:0;padding:9px;border-radius:11px}
+#form #ingredientList .ingredient-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+#form #ingredientList .ingredient-fields>.field-name{grid-column:1/-1}
+#form #ingredientList .ingredient-fields>.ingredient-quantities{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+#form #ingredientList .ingredient-compact label{font-size:11px;min-height:0}
+#form #ingredientList .ingredient-compact input,#form #ingredientList .ingredient-compact select{font-size:12px;padding:6px 5px;min-height:32px}
+#form #ingredientList .ingredient-fields>.live{grid-column:1/-1;overflow-wrap:anywhere}
+@media(max-width:700px){#form #ingredientList{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){#form #ingredientList{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}#form #ingredientList>.ingredient{padding:6px}#form #ingredientList .ingredient-fields{gap:4px}#form #ingredientList .ingredient-fields>.ingredient-quantities{gap:4px}#form #ingredientList .ingredient-compact input,#form #ingredientList .ingredient-compact select{font-size:12px}}
+</style><style>
+/* V5.6 visual refresh — presentation only, preserves V5.5 layout and logic */
+:root{font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;color:#233b40;background:#f4f7fa;--ink:#233b40;--accent:#176b77;--accent2:#128b83;--line:#dce7eb}
+body{background:radial-gradient(ellipse at 15% 0%,#e5f3f3 0,transparent 45%),linear-gradient(160deg,#f8fafc,#eff4f7);min-height:100vh;color:var(--ink)}
+header{background:rgba(255,255,255,.93);border-bottom:1px solid #dce8ed;box-shadow:0 3px 18px #20465b0b;backdrop-filter:blur(14px)}
+header b{color:#135968;letter-spacing:.2px}
+main{max-width:1000px}
+h1,h2{color:#1a4551;letter-spacing:-.35px}
+h1{font-weight:800}h2{font-weight:750}
+.card{border:1px solid #e1eaf0;background:#fff;border-radius:20px;box-shadow:0 7px 25px #1b506013,0 1px 4px #1b506008;padding:20px}
+button{border:1px solid #cbdde3;background:#fff;color:#236274;border-radius:11px;font-weight:650;transition:background .15s,box-shadow .15s,transform .15s}
+button:hover:not(:disabled){background:#edf7f9;border-color:#a3cbd2;box-shadow:0 3px 10px #24576b13}
+button:active:not(:disabled){transform:translateY(1px)}
+button.primary{background:linear-gradient(125deg,#166c7a,#168c85);border-color:#167784;color:white;box-shadow:0 4px 12px #127a842a}
+button.primary:hover:not(:disabled){background:linear-gradient(125deg,#125b68,#127a74);color:white}
+button.danger{color:#ac4652;border-color:#efd7da;background:#fff9fa}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #8bd1d2;outline-offset:2px}
+input,textarea,select{border:1px solid #cbdce2;border-radius:10px;background:#fcfefe;color:#203c44;box-shadow:inset 0 1px 2px #18374408}
+input:focus,textarea:focus,select:focus{border-color:#399ca5;background:#fff;outline:2px solid #b7e3e5;outline-offset:0}
+label{color:#385962}.muted,small,.note{color:#647c85}
+.grid .tile{border-color:#d9e6ea;background:linear-gradient(145deg,#fff,#f5fafb);border-radius:16px;box-shadow:0 3px 12px #17495d0b}
+.grid .tile:hover{background:linear-gradient(145deg,#f8fefe,#eaf6f6)}
+.tile b{color:#1d5362}.tile span{color:#69808a}
+.stat{background:linear-gradient(130deg,#eaf7f7,#f2f9fc);border:1px solid #d7ebee;border-radius:14px}
+.stat strong{color:#126b77}
+.pill{background:#e4f3f2;color:#126e70}
+.history-entry,.cost-entry{border-color:#dbe7eb;border-radius:12px;box-shadow:0 2px 7px #214b5b08}
+.history-entry summary{background:#f4f9fa}.history-name{color:#176371}.history-meta{color:#6a8088}
+.cost-entry[open]>summary{background:#eaf6f7;border-bottom-color:#d6e7ea}
+.history-content,.cost-content{background:#fff}
+.category-tabs button{background:#f9fcfd;border-color:#d2e2e6;color:#2b6572;border-radius:10px}
+.category-tabs button.active{background:linear-gradient(130deg,#176a79,#13877f);border-color:#187781;color:#fff;box-shadow:0 3px 9px #176d7829}
+.price-filter{background:#f0f8fa;border:1px solid #dcebef}
+.ingredient{border-color:#d9e6eb;background:#fcfefe}
+#form #ingredientList>.ingredient{background:linear-gradient(160deg,#fff,#f4fafb);border:1px solid #d6e5ea;border-radius:14px;box-shadow:0 4px 12px #23536412}
+#form #ingredientList>.ingredient:nth-child(3n+2){background:linear-gradient(160deg,#fff,#f5faf7)}
+#form #ingredientList>.ingredient:nth-child(3n){background:linear-gradient(160deg,#fff,#f8f8fc)}
+#form #ingredientList .ingredient-compact input,#form #ingredientList .ingredient-compact select{background:#fff;border-color:#d0dfe4}
+#form #ingredientList .ingredient-compact .live{background:#eaf5f7;border-radius:8px;color:#285c67}
+td,th{border-bottom-color:#e5edf0}th{color:#245d69;background:#f3f8fa}
+@media(max-width:560px){.card{padding:14px;border-radius:16px}main{margin-top:14px}header>div{padding:11px 13px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+</style><style id="nightTheme">
+html[data-theme="dark"]{color-scheme:dark;--ink:#e4eef2;--accent:#64c7c8;--accent2:#36aaa9;--line:#334a59;background:#0b141e}
+html[data-theme="dark"] body{background:radial-gradient(ellipse at 10% 0%,#193444 0%,transparent 45%),linear-gradient(155deg,#0b141e,#111f2c);color:#e4eef2}
+html[data-theme="dark"] header{background:rgba(17,29,41,.96);border-color:#2b4250;box-shadow:0 4px 22px #0004}
+html[data-theme="dark"] header b,html[data-theme="dark"] h1,html[data-theme="dark"] h2{color:#e8f5f6}
+html[data-theme="dark"] .card{background:#172632;border-color:#324655;box-shadow:0 8px 25px #0003}
+html[data-theme="dark"] button{background:#213543;color:#c5e9ed;border-color:#42606d;box-shadow:none}
+html[data-theme="dark"] button:hover:not(:disabled){background:#2a4754;border-color:#5d929b;box-shadow:0 2px 12px #0003}
+html[data-theme="dark"] button.primary,html[data-theme="dark"] .category-tabs button.active{background:linear-gradient(125deg,#176c78,#17867f);border-color:#368f98;color:#fff}
+html[data-theme="dark"] button.danger{background:#392733;color:#ffabb6;border-color:#79505b}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select{background:#10202c;border-color:#405b68;color:#eaf3f5;box-shadow:none}
+html[data-theme="dark"] input:focus,html[data-theme="dark"] textarea:focus,html[data-theme="dark"] select:focus{background:#172e3a;border-color:#61c2c3;outline-color:#3b737c}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#92aab5}
+html[data-theme="dark"] label{color:#c2d7de}
+html[data-theme="dark"] .muted,html[data-theme="dark"] small,html[data-theme="dark"] .note,html[data-theme="dark"] .history-meta,html[data-theme="dark"] .cost-entry>summary .history-meta{color:#a4bbc6}
+html[data-theme="dark"] .grid .tile{background:linear-gradient(145deg,#1c3542,#182a37);border-color:#385664;box-shadow:none}
+html[data-theme="dark"] .grid .tile:hover{background:#244351}
+html[data-theme="dark"] .tile b,html[data-theme="dark"] .history-name{color:#c2eff0}
+html[data-theme="dark"] .tile span{color:#a5bec9}
+html[data-theme="dark"] .stat,html[data-theme="dark"] .price-filter{background:#1c3944;border-color:#355865;color:#e4f1f2}
+html[data-theme="dark"] .stat strong{color:#83e2db}
+html[data-theme="dark"] .pill{background:#234951;color:#b3eeeb}
+html[data-theme="dark"] .ingredient,html[data-theme="dark"] .history-entry,html[data-theme="dark"] .cost-entry{background:#192b38;border-color:#3b5360;box-shadow:none}
+html[data-theme="dark"] .history-entry summary,html[data-theme="dark"] .cost-entry>summary,html[data-theme="dark"] .cost-entry[open]>summary{background:#203745;border-color:#3a5360;color:#e7f1f4}
+html[data-theme="dark"] .category-tabs button{background:#1b3441;border-color:#45616e;color:#c5e3e8}
+html[data-theme="dark"] .history-content,html[data-theme="dark"] .cost-content{background:#192b38}
+html[data-theme="dark"] td,html[data-theme="dark"] th{border-color:#3b515e;color:#dcebef}
+html[data-theme="dark"] .budget-editor,html[data-theme="dark"] .item{border-color:#3b515e}
+html[data-theme="dark"] .warn{color:#ffca84}
+html[data-theme="dark"] .ingredient .live{background:#203b46;color:#d2e8ec}
+html[data-theme="dark"] #themeToggle{white-space:nowrap}
+@media(max-width:560px){#themeToggle{font-size:11px;padding:8px 6px}}
+</style><style>
+/* V5.8: dark history headings stay dark in collapsed, open and focused states */
+html[data-theme="dark"] #historyList details.history-entry,
+html[data-theme="dark"] #historyList details.history-entry > summary,
+html[data-theme="dark"] #historyList details.history-entry[open] > summary,
+html[data-theme="dark"] #historyList details.history-entry > summary:hover,
+html[data-theme="dark"] #historyList details.history-entry > summary:focus,
+html[data-theme="dark"] #historyList details.history-entry > summary:active {
+  background:#203745 !important;
+  background-image:none !important;
+  color:#e7f1f4 !important;
+  border-color:#3a5360 !important;
+}
+html[data-theme="dark"] #historyList details.history-entry > summary .history-name,
+html[data-theme="dark"] #historyList details.history-entry > summary b {color:#e7f1f4 !important}
+html[data-theme="dark"] #historyList details.history-entry > summary .history-meta {color:#a4bbc6 !important}
+html[data-theme="dark"] #historyList details.history-entry > .history-content {background:#192b38 !important;color:#e7f1f4}
+</style>
+<style>
+/* V6.0 Midnight premium finish — visual only */
+html[data-theme="dark"] body{
+ background:radial-gradient(ellipse 85% 45% at 12% -8%,rgba(34,112,125,.18),transparent 75%),
+ radial-gradient(ellipse 65% 55% at 100% 45%,rgba(41,79,114,.10),transparent 78%),#101b26!important;
+ color:#e9f1f5;
+}
+html[data-theme="dark"] header{
+ background:linear-gradient(110deg,#172b39,#1d3542 58%,#192b39)!important;
+ border-bottom:1px solid #456170!important;
+ box-shadow:0 7px 25px rgba(3,12,20,.24),inset 0 1px rgba(255,255,255,.06);
+}
+html[data-theme="dark"] .card{
+ background:linear-gradient(155deg,#223746 0%,#1a2d3b 100%)!important;
+ border:1px solid #3a5262!important;
+ border-radius:18px!important;
+ box-shadow:0 12px 32px rgba(2,10,18,.22),inset 0 1px rgba(255,255,255,.055)!important;
+}
+html[data-theme="dark"] .history-entry,
+html[data-theme="dark"] .cost-entry{
+ background:#192d3a!important;border:1px solid #476171!important;
+ border-radius:13px!important;
+ box-shadow:0 6px 18px rgba(3,13,22,.2),inset 0 1px rgba(255,255,255,.055)!important;
+}
+html[data-theme="dark"] .history-entry>summary,
+html[data-theme="dark"] .cost-entry>summary{
+ background:linear-gradient(180deg,#314c5c,#253c4b)!important;
+ border-bottom:1px solid #405c6b!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.11),0 2px 5px rgba(0,0,0,.12)!important;
+}
+html[data-theme="dark"] .history-entry[open]>summary,
+html[data-theme="dark"] .cost-entry[open]>summary{
+ background:linear-gradient(180deg,#355565,#294555)!important;
+}
+html[data-theme="dark"] .history-name{color:#eff8fa!important;text-shadow:0 1px 2px #10232c}
+html[data-theme="dark"] .history-meta{color:#b7cbd5!important}
+html[data-theme="dark"] #historyList .history-content .tablewrap{
+ background:#192d3a!important;border:1px solid #415c6b!important;
+ border-radius:12px!important;
+ box-shadow:0 4px 14px rgba(0,0,0,.16)!important;
+}
+html[data-theme="dark"] #historyList .history-content table{
+ border-collapse:separate!important;border-spacing:0!important;
+}
+html[data-theme="dark"] #historyList .history-content table th{
+ position:relative;
+ background:linear-gradient(180deg,#38586a 0%,#2d4859 52%,#253d4c 100%)!important;
+ color:#f5fbfd!important;
+ border-top:1px solid #6d8997!important;
+ border-bottom:2px solid #122b3a!important;
+ border-right:1px solid #496574!important;
+ padding:12px 11px!important;
+ font-weight:750!important;
+ letter-spacing:.035em;
+ text-shadow:0 1px 2px rgba(0,0,0,.52)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.16),inset 0 -1px rgba(0,0,0,.23),0 3px 7px rgba(0,0,0,.20)!important;
+}
+html[data-theme="dark"] #historyList .history-content table th:first-child{border-top-left-radius:8px}
+html[data-theme="dark"] #historyList .history-content table th:last-child{border-top-right-radius:8px;border-right:0}
+html[data-theme="dark"] #historyList .history-content table td{
+ background:#1d3443!important;color:#e0edf2!important;
+ border-bottom:1px solid #35505f!important;padding:11px 10px!important;
+}
+html[data-theme="dark"] #historyList .history-content table tr:nth-child(2n+1) td{background:#223a49!important}
+html[data-theme="dark"] #historyList .history-content table tr:hover td{background:#2a4655!important}
+html[data-theme="dark"] button:focus-visible,
+html[data-theme="dark"] input:focus-visible,
+html[data-theme="dark"] select:focus-visible{
+ outline:2px solid #68d8d0!important;outline-offset:2px!important;
+}
+html[data-theme="dark"] .category-tabs button.active{
+ background:linear-gradient(145deg,#1ba7ac,#107c89)!important;
+ box-shadow:0 4px 12px rgba(0,170,170,.17),inset 0 1px rgba(255,255,255,.20)!important;
+}
+@media(prefers-reduced-motion:no-preference){
+ html[data-theme="dark"] .history-entry,
+ html[data-theme="dark"] .cost-entry,
+ html[data-theme="dark"] button{transition:box-shadow .18s ease,transform .18s ease,background-color .18s ease}
+ html[data-theme="dark"] .history-entry:hover,
+ html[data-theme="dark"] .cost-entry:hover{box-shadow:0 10px 26px rgba(0,0,0,.28)!important}
+}
+</style>
+
+<style>
+/* V6.1 — all ingredient table headers, including Single Dish Cost */
+html[data-theme="dark"] #costButtons .cost-content .tablewrap,
+html[data-theme="dark"] #mealResult .tablewrap{
+ background:#192d3a!important;
+ border:1px solid #496474!important;
+ border-radius:12px!important;
+ overflow:auto;
+ box-shadow:0 5px 16px rgba(0,0,0,.19)!important;
+}
+html[data-theme="dark"] #costButtons .cost-content table,
+html[data-theme="dark"] #mealResult table{
+ border-collapse:separate!important;
+ border-spacing:0!important;
+}
+html[data-theme="dark"] #costButtons .cost-content table th,
+html[data-theme="dark"] #mealResult table th{
+ background:linear-gradient(180deg,#38586a 0%,#2d4859 55%,#253d4c 100%)!important;
+ background-color:#2d4859!important;
+ color:#f5fbfd!important;
+ border-top:1px solid #6d8997!important;
+ border-bottom:2px solid #122b3a!important;
+ border-right:1px solid #496574!important;
+ padding:12px 11px!important;
+ font-weight:750!important;
+ letter-spacing:.03em;
+ text-shadow:0 1px 2px rgba(0,0,0,.5)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.14),inset 0 -1px rgba(0,0,0,.22),0 3px 7px rgba(0,0,0,.19)!important;
+}
+html[data-theme="dark"] #costButtons .cost-content table th:first-child{border-top-left-radius:8px}
+html[data-theme="dark"] #costButtons .cost-content table th:last-child{border-top-right-radius:8px;border-right:0}
+html[data-theme="dark"] #costButtons .cost-content table td,
+html[data-theme="dark"] #mealResult table td{
+ background:#1d3443!important;color:#e0edf2!important;
+ border-bottom:1px solid #35505f!important;
+ padding:11px 10px!important;
+}
+html[data-theme="dark"] #costButtons .cost-content table tr:nth-child(odd) td,
+html[data-theme="dark"] #mealResult table tr:nth-child(odd) td{background:#223a49!important}
+html[data-theme="dark"] #costButtons .cost-content table tr:hover td{background:#2a4655!important}
+</style>
+<style>
+/* V6.2: new-dish ingredient cards dark mode, override legacy white card gradients */
+html[data-theme="dark"] #form #ingredientList>.ingredient,
+html[data-theme="dark"] #form #ingredientList>.ingredient:nth-child(3n+2),
+html[data-theme="dark"] #form #ingredientList>.ingredient:nth-child(3n+3){
+ background:linear-gradient(155deg,#263f4e 0%,#1a2e3c 100%)!important;
+ background-color:#203644!important;
+ border:1px solid #4c6977!important;
+ color:#edf6f8!important;
+ box-shadow:0 9px 22px rgba(0,0,0,.23),inset 0 1px rgba(255,255,255,.075)!important;
+}
+html[data-theme="dark"] #form #ingredientList>.ingredient .topline{color:#f0f8fa!important}
+html[data-theme="dark"] #form #ingredientList>.ingredient label{color:#c7dce4!important}
+html[data-theme="dark"] #form #ingredientList>.ingredient input,
+html[data-theme="dark"] #form #ingredientList>.ingredient select{
+ background:#142735!important;color:#eff8fa!important;
+ border:1px solid #4a6575!important;
+ box-shadow:inset 0 1px 3px rgba(0,0,0,.14)!important;
+}
+html[data-theme="dark"] #form #ingredientList>.ingredient input::placeholder{color:#94acb9!important;opacity:1}
+html[data-theme="dark"] #form #ingredientList>.ingredient .live{
+ background:#1a3542!important;color:#cce5e9!important;border-color:#365b68!important;
+}
+html[data-theme="dark"] #form #ingredientList>.ingredient .danger{
+ background:#49333e!important;color:#ffcad2!important;border:1px solid #825362!important;
+}
+</style><style>/* V6.3 食材卡片與新增按鈕留白 */
+#form .add-ingredient-button{display:inline-flex;align-items:center;justify-content:center;margin-top:14px!important;margin-bottom:4px!important;}
+</style><style>
+/* V6.5 新增菜色紀錄：精簡表單，不再整排拉長 */
+#form{max-width:820px;margin-left:auto;margin-right:auto}
+#form #dishForm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;align-items:start;padding:20px 22px}
+#form #dishForm>.row,#form #dishForm>h2,#form #dishForm>p,#form #ingredientList,#form #dishForm>.actions{grid-column:1/-1}
+#form #dishForm>.field{margin:0;min-width:0}
+#form #dishForm>.row{gap:14px}
+#form #dishForm>.row .field{margin:0}
+#form #dishForm>h2{margin:14px 0 0}
+#form #dishForm>p{margin:0 0 6px}
+#form #ingredientList{margin-top:2px}
+#form #dishForm>.add-ingredient-button{grid-column:1/-1;justify-self:start;margin-top:14px!important}
+#form #dishForm>.field:has(#notes){grid-column:1/-1;margin-top:8px!important}
+#form #dishForm>.actions{margin-top:10px}
+#form #dishForm input,#form #dishForm select,#form #dishForm textarea{max-width:100%;min-width:0}
+@media(max-width:600px){#form{max-width:100%}#form #dishForm{grid-template-columns:1fr;padding:15px;gap:10px}#form #dishForm>.row{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#form #dishForm>.row .field{min-width:0}#form #dishForm>.field{grid-column:1/-1}}
+@media(max-width:390px){#form #dishForm>.row{grid-template-columns:1fr}}
+
+/* V6.5 下拉選擇框圓角優化 */
+select, #form select, #form #dishForm select, #form .ingredient-compact select {
+ border-radius:16px!important;
+ padding-left:14px!important;
+ padding-right:32px!important;
+ transition:border-color .18s ease,box-shadow .18s ease!important;
+}
+select:focus-visible, #form select:focus-visible {
+ border-radius:16px!important;
+ box-shadow:0 0 0 3px rgba(77,211,203,.18)!important;
+}
+</style>
+<style>
+/* V6.6 — unified rounded inputs and custom rounded dropdown menus */
+:root{--ui-radius:15px;--ui-menu-radius:17px}
+input:not([type="checkbox"]):not([type="radio"]),textarea,select,
+#form .ingredient-compact input,#form .ingredient-compact select{
+ border-radius:var(--ui-radius)!important;
+}
+button:not(.custom-option),.category-tabs button,.tile{
+ border-radius:var(--ui-radius)!important;
+}
+.ingredient-compact,.ingredient,.history-entry,.cost-entry{border-radius:17px!important}
+.custom-select-wrap{position:relative;min-width:0;width:100%}
+.custom-select-wrap>select.custom-select-native{
+ position:absolute!important;left:0!important;top:0!important;
+ width:1px!important;height:1px!important;padding:0!important;
+ opacity:0!important;pointer-events:none!important;
+ clip-path:inset(50%)!important;overflow:hidden!important;
+}
+.custom-select-trigger{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:10px;width:100%;min-height:44px;text-align:left;
+ padding:10px 13px!important;border-radius:var(--ui-radius)!important;
+ font:inherit!important;font-size:inherit!important;line-height:1.4;
+ background:#fff;color:#23362e;border:1px solid #bfcfc1;
+ box-shadow:none;cursor:pointer;
+}
+.custom-select-trigger .custom-select-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.custom-select-trigger .custom-select-chevron{flex:none;font-size:12px;opacity:.85;transition:transform .15s}
+.custom-select-wrap.is-open .custom-select-chevron{transform:rotate(180deg)}
+.custom-select-wrap.is-open .custom-select-trigger,
+.custom-select-trigger:focus-visible{outline:2px solid #60c9c8;outline-offset:1px}
+.custom-select-menu{
+ position:fixed;z-index:99999;min-width:120px;max-height:min(244px,48vh);
+ overflow-y:auto;overscroll-behavior:contain;
+ border:1px solid #c2d4ce;border-radius:var(--ui-menu-radius);
+ padding:4px;background:#fff;
+ box-shadow:0 16px 36px rgba(12,32,42,.22),0 3px 8px rgba(12,32,42,.12);
+}
+.custom-option{
+ display:block;width:100%;border:0!important;text-align:left;
+ padding:7px 11px!important;margin:0!important;
+ border-radius:11px!important;background:transparent!important;
+ color:#23362e!important;font:inherit!important;line-height:1.4;
+ white-space:normal;min-height:34px;
+}
+.custom-option:hover,.custom-option:focus-visible{background:#e8f4f3!important;outline:none}
+.custom-option[aria-selected="true"]{background:#d7efeb!important;color:#126c70!important;font-weight:700}
+.custom-option:disabled{opacity:.45;cursor:not-allowed}
+html[data-theme="dark"] .custom-select-trigger{
+ background:linear-gradient(180deg,#213c4c,#1a3342)!important;
+ color:#eef7fa!important;border:1px solid #537686!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.07)!important;
+}
+html[data-theme="dark"] .custom-select-menu{
+ background:linear-gradient(160deg,#263f4e,#1c3341)!important;
+ border:1px solid #5c7d8b!important;
+ box-shadow:0 18px 42px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.10)!important;
+}
+html[data-theme="dark"] .custom-option{color:#eaf4f7!important;background:transparent!important}
+html[data-theme="dark"] .custom-option:hover,
+html[data-theme="dark"] .custom-option:focus-visible{background:#365667!important}
+html[data-theme="dark"] .custom-option[aria-selected="true"]{
+ background:linear-gradient(100deg,#315d69,#294b5a)!important;
+ color:#9df0e5!important;
+}
+</style>
+<meta name="theme-color" content="#172b39"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="團膳小管家"><meta name="mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/icon-192.png"><style>
+/* V7.0 touch-friendly mobile app layout */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overscroll-behavior-y:contain;padding-bottom:env(safe-area-inset-bottom,0px)}
+button,input,select,textarea{-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}
+@media(max-width:700px){
+ header{padding-top:env(safe-area-inset-top,0px)}
+ header>div{padding:10px 12px!important;gap:8px!important}
+ header .nav{gap:5px!important;flex-wrap:wrap}
+ header .nav button{min-height:40px;padding:8px 10px!important;font-size:13px!important}
+ main{padding:14px 12px 40px!important;width:100%!important;max-width:100%!important}
+ h1{font-size:23px!important;line-height:1.35}
+ .card{padding:14px!important;border-radius:17px!important}
+ .grid{gap:9px!important}
+ .grid .tile{min-height:94px!important;padding:14px 10px!important;border-radius:16px!important}
+ .grid .tile b{font-size:15px!important}
+ .grid .tile span{font-size:11px!important;line-height:1.45}
+ input:not([type=checkbox]):not([type=radio]),textarea,select,.custom-select-trigger{font-size:16px!important;min-height:44px!important}
+ .custom-select-menu{max-height:min(350px,55dvh)!important}
+ .custom-option{font-size:16px!important;min-height:44px!important}
+ #form .ingredient-compact{border-radius:17px!important;padding:11px!important}
+ #form .ingredient-fields{gap:8px!important}
+ .tablewrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+ .history-entry,.cost-entry{max-width:100%}
+}
+@media(max-width:390px){header .nav button{font-size:12px!important;padding:7px!important}.grid .tile{padding:12px 8px!important}}
+</style><style>
+/* V7.3: compact, one-line history record options */
+.custom-select-menu[data-select-id="recordSelect"] .custom-option{
+  font-size:14px!important;line-height:1.3!important;
+  min-height:33px!important;padding:7px 9px!important;
+  white-space:nowrap!important;overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+@media(max-width:700px){
+ .custom-select-menu[data-select-id="recordSelect"] .custom-option{font-size:13px!important;min-height:37px!important;padding:8px 9px!important}
+}
+</style>
+<style>
+/* V7.4: universal dark table headers; covers history, order estimates, dish costs,
+   meal costs, price library, and tables created dynamically. */
+html[data-theme="dark"] table thead,
+html[data-theme="dark"] table thead tr,
+html[data-theme="dark"] table thead th,
+html[data-theme="dark"] table thead td,
+html[data-theme="dark"] table th,
+html[data-theme="dark"] .tablewrap table th,
+html[data-theme="dark"] .tablewrap table tr:first-child th{
+ background:#2b4757!important;
+ background-image:linear-gradient(180deg,#385969 0%,#2d4959 56%,#233b4a 100%)!important;
+ color:#f1f8fa!important;
+ border-top:1px solid #638190!important;
+ border-bottom:2px solid #142b39!important;
+ border-right:1px solid #496574!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 2px 5px rgba(0,0,0,.18)!important;
+ text-shadow:0 1px 2px rgba(0,0,0,.5)!important;
+ font-weight:700!important;
+}
+html[data-theme="dark"] table th *,
+html[data-theme="dark"] table thead td *{color:#f1f8fa!important}
+html[data-theme="dark"] .tablewrap{
+ background:#1c3341!important;
+ border-color:#456273!important;
+ border-radius:12px!important;
+}
+html[data-theme="dark"] table tbody td{
+ background:#1e3543!important;
+ color:#e6f0f4!important;
+ border-bottom:1px solid #36515f!important;
+}
+html[data-theme="dark"] table tbody tr:nth-child(even) td{
+ background:#223b4a!important;
+}
+html[data-theme="dark"] table tbody tr:hover td{
+ background:#2a4756!important;
+}
+</style>
+</head><body><header><div><b>🍱 團膳管理小管家 V7.5</b><div class="nav"><button id="themeToggle" type="button" onclick="toggleTheme()" aria-label="切換日夜模式">☀️ 日間</button><button id="backBtn" onclick="back()">← 返回</button><button onclick="go('home')">⌂ 總頁</button></div></div></header><main><section id="home"><h1>今天要做什麼？</h1><p class="muted">一道菜可記錄多種食材，每種食材可填不同供應人數，分別計算增減量與每人克數。</p><div class="grid"><button class="tile" onclick="newForm();go('form')"><b>✍️ 新增菜色紀錄</b><span>同一道菜可分別登記剩餘、剛好或不足</span></button><button class="tile" onclick="go('history')"><b>📚 歷史紀錄</b><span>整道菜查詢、修改與刪除</span></button><button class="tile" onclick="go('calc')"><b>🧮 下次叫貨試算</b><span>各食材獨立增減，整道菜一起查看</span></button><button class="tile" onclick="go('cost')"><b>💰 單道菜成本</b><span>採購、使用與剩餘價值</span></button><button class="tile" onclick="go('meal')"><b>🍱 整餐成本</b><span>同日期餐次多道菜加總</span></button><button class="tile" onclick="go('prices')"><b>🏷️ 食材單價庫</b><span>管理常用食材價格</span></button><button class="tile" onclick="go('backup')"><b>⚙️ 資料備份</b><span>匯出 Excel、JSON 備份與匯入</span></button></div><div class="card" id="summary"></div><div class="card"><h2>紅燒排骨示範</h2><p class="muted">2800 人份，示範資料不會自動存入紀錄。</p><button onclick="fillDemo();go('form')">載入示範到表單（尚未儲存）</button></div></section><section id="form" class="hidden"><h1 id="formTitle">新增菜色紀錄</h1><form id="dishForm" class="card"><input id="editId" type="hidden"><div class="row"><div class="field"><label>日期 *</label><input id="date" type="date" required></div><div class="field"><label>整道菜預設供餐人數 *</label><input id="people" type="number" min="1" step="1" required placeholder="2800"></div></div><div class="field"><label>餐次</label><select id="mealType"><option>午餐</option><option>早餐</option><option>晚餐</option><option>點心</option></select></div><div class="field"><label>菜色名稱 *</label><input id="dish" required placeholder="例如 紅燒排骨"></div><div class="field"><label>菜色分類 *</label><select id="dishCategory" required><option value="">請選擇分類</option><option>特餐</option><option>主食</option><option>主菜</option><option>副菜</option><option>青菜</option><option>湯品</option><option>水果</option></select></div><div class="field" id="mainSubtypeField" style="display:none"><label>主菜類型 *</label><select id="mainSubtype"><option value="">請選擇主菜類型</option><option>雞肉</option><option>豬肉</option><option>海鮮</option></select></div><h2>食材明細</h2><p class="muted">每種食材可各自輸入實際供應人數；留空時使用整道菜預設人數。每項食材可選擇有剩餘、剛剛好或不夠用；不足量是估計需求，並非實際已使用量。</p><div id="ingredientList"></div><button type="button" class="add-ingredient-button" onclick="addIngredient()">＋ 新增其他食材</button><div class="field" style="margin-top:16px"><label>備註（選填）</label><textarea id="notes" rows="2"></textarea></div><div class="actions"><button type="submit" class="primary">💾 儲存整道菜紀錄</button><button type="button" onclick="newForm()">清空表單</button></div></form></section><section id="history" class="hidden"><h1>歷史紀錄</h1><div class="section-nav"><button onclick="back()">← 返回上一頁</button><button onclick="go('home')">⌂ 回到總頁</button></div><div class="card"><label>搜尋菜色、分類、食材或日期</label><input id="search" oninput="renderHistory()" placeholder="例如 紅燒排骨"><div id="historyCategoryTabs" class="category-tabs"></div><div id="historySubtypeTabs" class="category-tabs"></div><div id="historyList"></div></div></section><section id="calc" class="hidden"><h1>下次叫貨試算</h1><div class="section-nav"><button onclick="back()">← 返回上一頁</button><button onclick="go('home')">⌂ 回到總頁</button></div><div class="card"><div class="field"><label>選擇整道菜歷史紀錄</label><select id="recordSelect" onchange="estimate()"></select></div><div class="field"><label>下次預計供餐人數</label><input id="nextPeople" type="number" min="1" step="1" oninput="estimate()" placeholder="例如 2800"></div><div id="estimate"></div></div></section><section id="backup" class="hidden"><h1>備份與資料說明</h1><div class="card"><p>此版本使用瀏覽器本機儲存，<b>尚無雲端同步</b>。請定期備份，避免換裝置或清除瀏覽器資料時遺失。</p><div class="actions"><button class="primary" onclick="exportExcel()">📊 匯出 Excel (.xlsx)</button><button onclick="exportData()">⬇ 匯出 JSON 備份</button></div><p class="note">Excel 適合檢視、篩選與列印；若要把資料重新匯入 APP，請保留 JSON 備份。</p><hr><label>匯入先前備份（支援本版與舊版單食材備份）</label><input id="importFile" type="file" accept=".json,application/json"><button onclick="importData()" style="margin-top:8px">匯入備份</button></div></section><section id="cost" class="hidden"><h1>單道菜成本</h1><div class="section-nav"><button onclick="back()">← 返回上一頁</button><button onclick="go('home')">⌂ 回到總頁</button></div><div class="card"><label for="costSearch">搜尋菜色、分類、日期或食材</label><input id="costSearch" type="search" placeholder="例如：紅燒排骨、2026-10、豬排骨" oninput="renderCost()"><p class="note">點選菜名即可展開成本明細，再點一次可收合。</p><div class="price-filter"><div class="row"><div class="field"><label>最低每人成本（元）</label><input id="costMin" type="number" min="0" step="0.01" placeholder="不限" oninput="renderCost()"></div><div class="field"><label>最高每人成本（元）</label><input id="costMax" type="number" min="0" step="0.01" placeholder="不限" oninput="renderCost()"></div></div><button type="button" onclick="clearCostFilter()">清除價格篩選</button></div><div id="costCategoryTabs" class="category-tabs"></div><div id="costSubtypeTabs" class="category-tabs"></div><p class="note" id="costCount"></p><div id="costButtons" class="cost-list"></div></div></section><section id="meal" class="hidden"><h1>整餐成本</h1><div class="section-nav"><button onclick="back()">← 返回上一頁</button><button onclick="go('home')">⌂ 回到總頁</button></div><div class="card"><label>選擇日期及餐次</label><select id="mealSelect" onchange="showMeal()"></select><div id="mealResult"></div></div></section><section id="prices" class="hidden"><h1>食材單價庫</h1><div class="section-nav"><button onclick="back()">← 返回上一頁</button><button onclick="go('home')">⌂ 回到總頁</button></div><div class="card"><p class="note">可按「編輯單價」直接修改價格。新單價會自動帶入新增及編輯表單，並同步更新所有同名、同單位的歷史紀錄及成本。儲存菜色時也會更新單價庫。單價是每「所選單位」的價格，公斤、斤與公克不會自動混用；1 台斤＝600 公克。</p><div class="field"><label for="priceSearch">搜尋食材名稱或單位</label><input id="priceSearch" type="search" placeholder="例如：雞腿、豬肉、公斤" oninput="renderPrices()" autocomplete="off"></div><p class="note" id="priceSearchCount"></p><div id="priceList"></div></div></section></main><script>
+'use strict';const KEY='catering-dishes-multi-v2',OLD='catering-leftovers-v1';let records=[],page='home',stack=[],counter=0;const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const fmt=x=>Number(x).toLocaleString('zh-TW',{maximumFractionDigits:2});const today=()=>new Date().toLocaleDateString('en-CA');const uid=()=>('r-'+Date.now()+'-'+Math.random().toString(36).slice(2));function go(dest,push=true){if(dest!==page&&push)stack.push(page);page=dest;document.querySelectorAll('main section').forEach(x=>x.classList.toggle('hidden',x.id!==dest));$('backBtn').disabled=!stack.length;if(dest==='history')renderHistory();if(dest==='calc')renderCalc();if(dest==='cost')renderCost();if(dest==='meal')renderMeal();if(dest==='prices')renderPrices();renderSummary();window.scrollTo(0,0)}function back(){if(stack.length)go(stack.pop(),false)}function save(){try{localStorage.setItem(KEY,JSON.stringify(records));return true}catch(e){alert('儲存失敗，請檢查瀏覽器是否允許本機儲存');return false}}function load(){try{const v=JSON.parse(localStorage.getItem(KEY)||'[]');records=Array.isArray(v)?v:[]}catch(e){records=[]}}function renderSummary(){$('summary').innerHTML=`目前已儲存 <b>${records.length}</b> 筆菜色紀錄，合計 <b>${records.reduce((a,r)=>a+r.items.length,0)}</b> 項食材紀錄。`}
+function ingredientHTML(it){const id=++counter;return `<div class="ingredient ingredient-compact" data-ingredient="${id}"><div class="topline"><b>食材</b><button type="button" class="danger" onclick="this.closest('.ingredient').remove();updateLive()">移除</button></div><div class="ingredient-fields"><div class="field field-name"><label>食材名稱 *</label><input class="iname" required placeholder="例如 白蘿蔔" value="${esc(it?.name||'')}"></div><div class="ingredient-quantities"><div class="field"><label>叫貨量 *</label><input class="iorder" type="number" min="0.001" step="any" required value="${esc(it?.ordered??'')}"></div><div class="field"><label class="iamountlabel">剩餘量 *</label><input class="ileft" type="number" min="0" step="any" required value="${esc(it?.leftover??'')}"></div><div class="field"><label>單位</label><select class="iunit">${['公斤','斤','公克','包','箱','份','其他'].map(u=>`<option ${it?.unit===u?'selected':''}>${u}</option>`).join('')}</select></div></div><div class="field"><label>使用狀況</label><select class="istatus" onchange="updateLive()"><option value="left" ${!it?.status||it.status==='left'?'selected':''}>有剩餘</option><option value="exact" ${it?.status==='exact'?'selected':''}>剛剛好</option><option value="short" ${it?.status==='short'?'selected':''}>不夠用</option></select></div><div class="field"><label>單價（元／單位）</label><input class="iprice" type="number" min="0" step="any" placeholder="例如 105（公斤單價）" value="${esc(priceFor(it?.name||'',it?.unit||'公斤')??it?.price??'')}"></div><div class="field"><label>供應人數（選填）</label><input class="ipeople" type="number" min="1" step="1" placeholder="留空＝整道菜預設人數" value="${esc(it?.people??'')}"></div><div class="stat live muted">填入數量後自動計算</div></div></div>`}function addIngredient(it){$('ingredientList').insertAdjacentHTML('beforeend',ingredientHTML(it));updateLive()}function newForm(){$('dishForm').reset();$('editId').value='';$('date').value=today();$('formTitle').textContent='新增菜色紀錄';$('mealType').value='午餐';$('dishCategory').value='';$('mainSubtype').value='';updateSubtypeField();$('ingredientList').innerHTML='';addIngredient()}function fillDemo(){newForm();$('dish').value='紅燒排骨';$('people').value='2800';$('ingredientList').innerHTML='';[{name:'豬排骨',ordered:200,leftover:10,unit:'公斤'},{name:'白蘿蔔',ordered:80,leftover:12,unit:'公斤'},{name:'紅蘿蔔',ordered:30,leftover:3,unit:'公斤'}].forEach(addIngredient);updateLive()}function getItems(){return [...document.querySelectorAll('.ingredient')].map(el=>({name:el.querySelector('.iname').value.trim(),ordered:Number(el.querySelector('.iorder').value),leftover:Number(el.querySelector('.ileft').value),status:el.querySelector('.istatus').value,unit:el.querySelector('.iunit').value,people:el.querySelector('.ipeople').value===''?null:Number(el.querySelector('.ipeople').value),rawPeople:el.querySelector('.ipeople').value,rawOrder:el.querySelector('.iorder').value,rawLeft:el.querySelector('.ileft').value,price:el.querySelector('.iprice').value===''?null:Number(el.querySelector('.iprice').value),rawPrice:el.querySelector('.iprice').value}))}function statusOf(it){return ['left','exact','short'].includes(it.status)?it.status:'left'}function actualUsed(it){return it.ordered-(statusOf(it)==='left'?it.leftover:0)}function targetUsed(it){return it.ordered+(statusOf(it)==='short'?it.leftover:0)-(statusOf(it)==='left'?it.leftover:0)}function originalGrams(it,people){if(!(people>0))return null;return it.unit==='公斤'?it.ordered*1000/people:it.unit==='斤'?it.ordered*600/people:it.unit==='公克'?it.ordered/people:null}function grams(it,people){if(!(people>0))return null;const used=actualUsed(it);return it.unit==='公斤'?used*1000/people:it.unit==='斤'?used*600/people:it.unit==='公克'?used/people:null}function updateLive(){const people=Number($('people').value);document.querySelectorAll('.ingredient').forEach(el=>{const a=el.querySelector('.iorder').value,b=el.querySelector('.ileft').value,u=el.querySelector('.iunit').value,out=el.querySelector('.live'),status=el.querySelector('.istatus').value;el.querySelector('.iamountlabel').textContent=status==='short'?'估計不足量 *':status==='exact'?'數量（剛好，固定為 0）':'剩餘量 *';el.querySelector('.ileft').disabled=status==='exact';if(status==='exact')el.querySelector('.ileft').value='0';if(a===''||b===''||!(Number(a)>0)||Number(b)<0||(status==='left'&&Number(b)>Number(a))){out.textContent='請輸入有效叫貨量及剩餘量';return}const it={ordered:Number(a),leftover:Number(b),status,unit:u};const perRaw=el.querySelector('.ipeople').value,per=perRaw===''?people:Number(perRaw);if(!(Number.isInteger(per)&&per>0)){out.textContent='請輸入有效的食材供應人數';return}const g=grams(it,per);out.innerHTML=`${status==='short'?'不足比例':status==='exact'?'使用狀況':'剩餘率'} <b>${status==='exact'?'剛剛好':fmt(it.leftover/it.ordered*100)+'%'}</b> ｜實際用量 <b>${fmt(actualUsed(it))} ${esc(u)}</b>${g===null?'':' ｜實際每人 <b>'+fmt(g)+' g</b>'}${status==='short'?' ｜下次目標量（同人數） <b>'+fmt(targetUsed(it))+' '+esc(u)+'</b>（估計）':''}`})}$('ingredientList').addEventListener('change',e=>{if(e.target.classList.contains('iname')||e.target.classList.contains('iunit')){const el=e.target.closest('.ingredient'),p=priceFor(el.querySelector('.iname').value,el.querySelector('.iunit').value);if(p!==null)el.querySelector('.iprice').value=p}});$('ingredientList').addEventListener('input',updateLive);$('people').addEventListener('input',updateLive);$('dishForm').addEventListener('submit',e=>{e.preventDefault();const items=getItems(),people=Number($('people').value);if(!items.length){alert('請至少新增一種食材');return}if(!Number.isInteger(people)||people<=0||items.some(x=>!x.name||x.rawOrder===''||x.rawLeft===''||!(x.ordered>0)||x.leftover<0||(x.status==='left'&&x.leftover>x.ordered)||(x.rawPrice!==''&&(!Number.isFinite(x.price)||x.price<0))||(x.rawPeople!==''&&(!Number.isInteger(x.people)||x.people<=0)))){alert('請檢查供餐人數、食材名稱與數量；有剩餘時剩餘量不得大於叫貨量');return}items.forEach(x=>{if(x.price!==null)setPrice(x.name,x.unit,x.price)});const id=$('editId').value||uid(),r={id,date:$('date').value,dish:$('dish').value.trim(),category:$('dishCategory').value,subcategory:$('dishCategory').value==='主菜'?$('mainSubtype').value:'',people,notes:$('notes').value.trim(),meal:$('mealType').value,items:items.map(({name,ordered,leftover,status,unit,people,price})=>({name,ordered,leftover,status,unit,people,price}))};if(!r.date||!r.dish||!r.category||(r.category==='主菜'&&!r.subcategory)){alert('請填寫日期、菜色、分類與主菜類型');return}const old=records.slice(),idx=records.findIndex(x=>x.id===id);if(idx>=0)records[idx]=r;else records.unshift(r);if(!save()){records=old;return}alert('整道菜紀錄已儲存');newForm();go('history')});
+const CATEGORIES=['全部','特餐','主食','主菜','副菜','青菜','湯品','水果','未分類'];let historyCategory='全部',costCategory='全部',historySubtype='全部',costSubtype='全部';
+function categoryMatch(r,cat){return cat==='全部'||(r.category||'未分類')===cat}
+function subtypeMatch(r,cat,sub){return cat!=='主菜'||sub==='全部'||(r.subcategory||'未分類')===sub}
+function subtypeTabs(id,cat,selected,fn){const el=$(id);if(!el)return;el.style.display=cat==='主菜'?'flex':'none';el.innerHTML=cat==='主菜'?['全部','雞肉','豬肉','海鮮','未分類'].map(c=>`<button type="button" class="${c===selected?'active':''}" data-subtype="${esc(c)}">${esc(c)}</button>`).join(''):'';el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>fn(b.dataset.subtype)))}
+function updateSubtypeField(){const active=$('dishCategory').value==='主菜';$('mainSubtypeField').style.display=active?'block':'none';$('mainSubtype').required=active;if(!active)$('mainSubtype').value=''}
+$('dishCategory').addEventListener('change',updateSubtypeField);
+function categoryTabs(id,selected,fn){const el=$(id);if(!el)return;el.innerHTML=CATEGORIES.map(c=>`<button type="button" class="${c===selected?'active':''}" aria-pressed="${c===selected}" data-category="${esc(c)}">${esc(c)}</button>`).join('');el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>fn(b.dataset.category)))}
+function chooseHistoryCategory(c){historyCategory=c;historySubtype='全部';renderHistory()}
+function chooseCostCategory(c){costCategory=c;costSubtype='全部';renderCost()}
+function chooseCostSubtype(c){costSubtype=c;renderCost()}
+function chooseHistorySubtype(c){historySubtype=c;renderHistory()}
+function renderHistory(){categoryTabs('historyCategoryTabs',historyCategory,chooseHistoryCategory);subtypeTabs('historySubtypeTabs',historyCategory,historySubtype,chooseHistorySubtype);const q=$('search').value.trim().toLowerCase(),rows=records.filter(r=>categoryMatch(r,historyCategory)&&subtypeMatch(r,historyCategory,historySubtype)&&(r.dish+' '+(r.category||'')+' '+r.date+' '+r.items.map(i=>i.name).join(' ')).toLowerCase().includes(q)).sort((a,b)=>b.date.localeCompare(a.date));$('historyList').innerHTML=rows.length?rows.map(r=>`<details class="history-entry"><summary><span class="history-name">🍲 ${esc(r.dish)}</span><span class="history-meta">${esc(r.date)} · ${esc(r.category||'未分類')}${r.category==='主菜'?'／'+esc(r.subcategory||'未分類'):''} · ${r.items.length} 種食材 · ${fmt(r.people)} 人 <span class="history-chevron">▼</span></span></summary><div class="history-content"><div class="tablewrap"><table><tr><th>食材</th><th>叫貨</th><th>使用狀況</th><th>剩餘／不足量</th><th>剩餘／不足率</th><th>食材人數</th><th>原本 g／人</th><th>實際 g／人</th></tr>${r.items.map(i=>`<tr><td>${esc(i.name)}</td><td>${fmt(i.ordered)} ${esc(i.unit)}</td><td>${statusOf(i)==='short'?'不夠用':statusOf(i)==='exact'?'剛剛好':'有剩餘'}</td><td>${statusOf(i)==='exact'?'—':fmt(i.leftover)+' '+esc(i.unit)}</td><td>${statusOf(i)==='exact'?'—':fmt(i.leftover/i.ordered*100)+'%'}</td><td>${fmt(i.people||r.people)}</td><td>${originalGrams(i,i.people||r.people)===null?'—':fmt(originalGrams(i,i.people||r.people))}</td><td>${grams(i,i.people||r.people)===null?'—':fmt(grams(i,i.people||r.people))}</td></tr>`).join('')}</table></div>${r.notes?'<p class="note">備註：'+esc(r.notes)+'</p>':''}<div class="actions"><button onclick="editRecord('${esc(r.id)}')">編輯</button><button onclick="estimateRecord('${esc(r.id)}')">試算下次</button><button class="danger" onclick="deleteRecord('${esc(r.id)}')">刪除</button></div></div></details>`).join(''):'<p class="muted">沒有符合的紀錄</p>'}
+function editRecord(id){const r=records.find(x=>x.id===id);if(!r)return;newForm();$('editId').value=r.id;$('formTitle').textContent='編輯菜色紀錄';$('date').value=r.date;$('dish').value=r.dish;$('people').value=r.people;$('notes').value=r.notes||'';$('mealType').value=r.meal||'午餐';$('dishCategory').value=r.category||'';$('mainSubtype').value=r.subcategory||'';updateSubtypeField();$('ingredientList').innerHTML='';r.items.forEach(addIngredient);updateLive();go('form')}function deleteRecord(id){const r=records.find(x=>x.id===id);if(!r||!confirm('確定刪除整道「'+r.dish+'」及其所有食材紀錄？'))return;const old=records.slice();records=records.filter(x=>x.id!==id);if(!save()){records=old;return}renderHistory();renderSummary()}
+function renderCalc(selected){const sel=$('recordSelect'),current=selected||sel.value;sel.innerHTML='<option value="">請選擇菜色紀錄</option>'+records.map(r=>`<option value="${esc(r.id)}">${esc(r.date+'｜'+r.dish+'（'+r.items.length+'種食材）')}</option>`).join('');if(records.some(r=>r.id===current))sel.value=current;estimate()}function estimateRecord(id){go('calc');renderCalc(id)}function estimate(){const r=records.find(x=>x.id===$('recordSelect').value),out=$('estimate');if(!r){out.innerHTML='<p class="muted">請選擇歷史菜色紀錄。</p>';return}const raw=$('nextPeople').value,n=Number(raw);if(raw!==''&&(!Number.isInteger(n)||n<=0)){out.innerHTML='<p class="warn">下次供餐人數請輸入正整數。</p>';return}const valid=raw!==''&&n>0;out.innerHTML=`<h2>${esc(r.dish)}</h2><p class="muted">上次 ${fmt(r.people)} 人；${valid?'下次 '+fmt(n)+' 人':'請輸入下次供餐人數以計算建議量'}</p><div class="tablewrap"><table><tr><th>食材</th><th>原叫貨</th><th>使用狀況</th><th>剩餘／不足率</th><th>上次食材人數</th><th>原本 g／人</th><th>實際 g／人</th><th>下次建議量</th></tr>${r.items.map(i=>`<tr><td>${esc(i.name)}</td><td>${fmt(i.ordered)} ${esc(i.unit)}</td><td>${statusOf(i)==='short'?'不夠用':statusOf(i)==='exact'?'剛剛好':'有剩餘'}</td><td>${statusOf(i)==='exact'?'—':fmt(i.leftover/i.ordered*100)+'%'}</td><td>${fmt(i.people||r.people)}</td><td>${originalGrams(i,i.people||r.people)===null?'—':fmt(originalGrams(i,i.people||r.people))}</td><td>${grams(i,i.people||r.people)===null?'—':fmt(grams(i,i.people||r.people))}</td><td><b>${valid?fmt(targetUsed(i)*n/(i.people||r.people))+' '+esc(i.unit):'—'}</b></td></tr>`).join('')}</table></div><p class="note">公式：有剩餘＝原叫貨量－剩餘量；剛剛好＝原叫貨量；不夠用＝原叫貨量＋估計不足量；再依下次人數與本次食材供應人數比例換算。不夠用的不足量屬估計需求，並非實際已使用量。下次人數目前為全菜共用，若食材下次供應人數不同，請另行調整。斤以 1 台斤＝600 公克換算每人克數；包、箱等單位僅按相同單位比例估算，不自動換算成公斤。此為歷史參考量，尚未加入備用量、修整耗損及最低訂購量；請依現場狀況調整。</p>`}
+
+// Offline, dependency-free XLSX exporter. Uses uncompressed ZIP entries and inline strings.
+function exportExcel(){
+ if(!records.length){alert('目前沒有紀錄可以匯出');return}
+ const headings=['日期','菜色分類','主菜類型','菜色名稱','食材名稱','菜色預設人數','食材供應人數','原叫貨量','單位','使用狀況','剩餘／估計不足量','剩餘／不足率 (%)','實際使用量','原本每人克數 (g)','實際每人克數 (g)','下次參考叫貨量（同食材人數）','備註','餐次','食材單價','採購成本','使用成本','剩餘價值','單道菜每人採購成本','單道菜每人使用成本'];
+ const rows=[headings];
+ records.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).forEach(r=>r.items.forEach(i=>{
+  const p=Number(i.people)||Number(r.people),st=statusOf(i),n=Number(i.leftover)||0,o=Number(i.ordered)||0;
+  const rate=st==='exact'?0:o?n/o*100:0;
+  const used=actualUsed(i),orig=originalGrams(i,p),actual=grams(i,p);
+  rows.push([r.date,r.category||'未分類',r.subcategory||'',r.dish,i.name,Number(r.people),p,o,i.unit,st==='short'?'不夠用':st==='exact'?'剛剛好':'有剩餘',st==='exact'?0:n,rate,used,orig===null?'':orig,actual===null?'':actual,targetUsed(i),r.notes||'',r.meal||'午餐',i.price??'',i.price==null?'':purchase(i),i.price==null?'':usedCost(i),i.price==null?'':leftCost(i),costKnown(r)?dishPurchase(r)/r.people:'',costKnown(r)?dishUsed(r)/r.people:'']);
+ }));
+ const xe=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,'');
+ const col=n=>{let t='';for(let x=n+1;x;x=Math.floor((x-1)/26))t=String.fromCharCode(65+(x-1)%26)+t;return t};
+ const sheet='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"/></sheetViews><cols><col min="1" max="3" width="19" customWidth="1"/><col min="4" max="22" width="20" customWidth="1"/></cols><sheetData>'+rows.map((r,ri)=>'<row r="'+(ri+1)+'">'+r.map((v,ci)=>{const addr=col(ci)+(ri+1);if(typeof v==='number'&&Number.isFinite(v))return '<c r="'+addr+'"><v>'+v+'</v></c>';return '<c r="'+addr+'" t="inlineStr"><is><t>'+xe(v)+'</t></is></c>'}).join('')+'</row>').join('')+'</sheetData><autoFilter ref="A1:V'+rows.length+'"/></worksheet>';
+ const files={
+  '[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>',
+  '_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>',
+  'xl/workbook.xml':'<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="食材使用紀錄" sheetId="1" r:id="rId1"/></sheets></workbook>',
+  'xl/_rels/workbook.xml.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>',
+  'xl/worksheets/sheet1.xml':sheet
+ };
+ const enc=new TextEncoder(),chunks=[],central=[];let offset=0;
+ const u16=n=>[n&255,(n>>>8)&255],u32=n=>[n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];
+ const crc32=bytes=>{let c=0xffffffff;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0)}return(c^0xffffffff)>>>0};
+ const add=a=>{const b=Uint8Array.from(a);chunks.push(b);offset+=b.length};
+ for(const [name,content] of Object.entries(files)){
+  const nb=enc.encode(name),data=enc.encode(content),crc=crc32(data),start=offset;
+  add([...u32(0x04034b50),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0),...u32(crc),...u32(data.length),...u32(data.length),...u16(nb.length),...u16(0)]);add(nb);add(data);
+  central.push({nb,crc,size:data.length,start});
+ }
+ const centralStart=offset;
+ for(const f of central){add([...u32(0x02014b50),...u16(20),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0),...u32(f.crc),...u32(f.size),...u32(f.size),...u16(f.nb.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(f.start)]);add(f.nb)}
+ const centralSize=offset-centralStart;add([...u32(0x06054b50),...u16(0),...u16(0),...u16(central.length),...u16(central.length),...u32(centralSize),...u32(centralStart),...u16(0)]);
+ const blob=new Blob(chunks,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='團膳叫貨小管家_食材紀錄_'+today()+'.xlsx';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+function exportData(){const blob=new Blob([JSON.stringify({app:'團膳叫貨小管家',version:48,records,prices:priceDB,budgets:dishBudgets},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='團膳叫貨小管家_多食材備份_'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}function convertOld(v){const groups=new Map();for(const x of v.entries){const key=[x.date,x.dish,x.people??''].join('|');if(!groups.has(key))groups.set(key,{id:uid(),date:x.date,dish:x.dish,people:Number(x.people)||0,notes:'由舊版單食材備份轉入',items:[]});groups.get(key).items.push({name:x.ingredient,ordered:Number(x.ordered),leftover:Number(x.leftover),unit:x.unit,status:'left',people:null})}return [...groups.values()]}async function importData(){const file=$('importFile').files[0];if(!file){alert('請選擇 JSON 檔案');return}try{const v=JSON.parse(await file.text());if(!['團膳叫貨小管家','團膳管理小管家'].includes(v.app))throw Error('非本 APP 備份');const incoming=Array.isArray(v.records)?v.records:Array.isArray(v.entries)?convertOld(v):null;if(!incoming||incoming.some(r=>!r||!r.id||!r.dish||!r.date||!Array.isArray(r.items)||!r.items.length||r.items.some(i=>!i.name||!(Number(i.ordered)>0)||!(Number(i.leftover)>=0)||(statusOf(i)==='left'&&Number(i.leftover)>Number(i.ordered))||(i.people!=null&&(!Number.isInteger(Number(i.people))||Number(i.people)<=0)))))throw Error('備份內容格式錯誤');if(!confirm('確定匯入 '+incoming.length+' 筆菜色紀錄？相同 ID 將更新。'))return;const old=records.slice(),map=new Map(records.map(r=>[r.id,r]));incoming.forEach(r=>map.set(r.id,r));records=[...map.values()];if(v.prices&&typeof v.prices==='object'){priceDB={...priceDB,...v.prices};savePrices()}if(v.budgets&&typeof v.budgets==='object'){for(const [name,b] of Object.entries(v.budgets)){if(b&&Number.isFinite(Number(b.min))&&Number.isFinite(Number(b.max))&&Number(b.min)>=0&&Number(b.max)>=Number(b.min))dishBudgets[name]={min:Number(b.min),max:Number(b.max)}}saveBudgets()}if(!save()){records=old;return}applyLibraryPrices();alert('匯入成功');renderSummary()}catch(e){alert('匯入失敗：'+e.message)}}
+const PRICEKEY='catering-unit-prices-v4';let priceDB={};try{priceDB=JSON.parse(localStorage.getItem(PRICEKEY)||'{}')||{}}catch(e){}
+function priceFor(name,unit){return priceDB[name.trim()+'|'+unit]??null}
+function setPrice(name,unit,value){const key=name.trim()+'|'+unit;priceDB[key]=value;savePrices();syncPriceToRecords(key,value);syncPriceToForm(key,value)}
+function syncPriceToRecords(key,value){let changed=false;records.forEach(r=>(r.items||[]).forEach(i=>{if(i.name.trim()+'|'+i.unit===key){i.price=Number(value);changed=true}}));if(changed)save()}function syncPriceToForm(key,value){document.querySelectorAll('.ingredient').forEach(el=>{if(el.querySelector('.iname').value.trim()+'|'+el.querySelector('.iunit').value===key)el.querySelector('.iprice').value=value});updateLive()}function applyLibraryPrices(){let changed=false;records.forEach(r=>(r.items||[]).forEach(i=>{const v=priceFor(i.name,i.unit);if(v!==null&&i.price!==v){i.price=v;changed=true}}));if(changed)save()}function savePrices(){try{localStorage.setItem(PRICEKEY,JSON.stringify(priceDB))}catch(e){}}
+function purchase(i){return Number(i.ordered)*Number(i.price)}
+function usedCost(i){return actualUsed(i)*Number(i.price)}
+function leftCost(i){return statusOf(i)==='left'?Number(i.leftover)*Number(i.price):0}
+function costKnown(r){return r.items.every(i=>i.price!==null&&i.price!==undefined&&i.price!==''&&Number.isFinite(Number(i.price)))}
+function dishPurchase(r){return r.items.reduce((a,i)=>a+purchase(i),0)}
+function dishUsed(r){return r.items.reduce((a,i)=>a+usedCost(i),0)}
+function dishLeft(r){return r.items.reduce((a,i)=>a+leftCost(i),0)}
+function costBox(r){if(!costKnown(r))return '<p class="warn">此菜色部分食材尚未設定單價，請編輯歷史紀錄補齊後再計算。</p>';return `<div class="stat"><strong>採購成本 $${fmt(dishPurchase(r))}</strong><p>每人採購 $${fmt(dishPurchase(r)/r.people)}</p><strong>使用成本 $${fmt(dishUsed(r))}</strong><p>每人使用 $${fmt(dishUsed(r)/r.people)}</p>剩餘食材價值 $${fmt(dishLeft(r))}</div><p class="note">不夠用時，實際使用成本只計已叫貨且用完的重量；不足量屬下次預估需求，不計入本次成本。</p><div class="tablewrap"><table><tr><th>食材</th><th>數量</th><th>單價</th><th>採購</th><th>使用</th><th>剩餘價值</th></tr>${r.items.map(i=>`<tr><td>${esc(i.name)}</td><td>${fmt(i.ordered)} ${esc(i.unit)}</td><td>$${fmt(i.price)}</td><td>$${fmt(purchase(i))}</td><td>$${fmt(usedCost(i))}</td><td>$${fmt(leftCost(i))}</td></tr>`).join('')}</table></div>`}
+const BUDGETKEY='catering-dish-budget-v45';let dishBudgets={};try{dishBudgets=JSON.parse(localStorage.getItem(BUDGETKEY)||'{}')||{}}catch(e){}
+function saveBudgets(){try{localStorage.setItem(BUDGETKEY,JSON.stringify(dishBudgets));return true}catch(e){alert('價格區間儲存失敗');return false}}
+function clearCostFilter(){$('costMin').value='';$('costMax').value='';renderCost()}
+function renderCost(){
+ categoryTabs('costCategoryTabs',costCategory,chooseCostCategory);subtypeTabs('costSubtypeTabs',costCategory,costSubtype,chooseCostSubtype);
+ const q=($('costSearch').value||'').trim().toLocaleLowerCase(),minRaw=$('costMin').value,maxRaw=$('costMax').value;
+ const low=minRaw===''?null:Number(minRaw),high=maxRaw===''?null:Number(maxRaw);
+ if((low!==null&&(!Number.isFinite(low)||low<0))||(high!==null&&(!Number.isFinite(high)||high<0))||(low!==null&&high!==null&&low>high)){$('costCount').textContent='請輸入有效的價格範圍（最低不得高於最高）';$('costButtons').innerHTML='';return}
+ const names=[...new Set(records.map(r=>r.dish.trim()))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'zh-TW'));
+ const matches=names.filter(name=>{const rows=records.filter(r=>r.dish.trim()===name&&categoryMatch(r,costCategory)&&subtypeMatch(r,costCategory,costSubtype));if(!rows.length)return false;const searchOk=(!q||name.toLocaleLowerCase().includes(q)||rows.some(r=>[r.date,r.category||'未分類',r.subcategory||'',r.meal||'午餐',...r.items.map(i=>i.name)].some(v=>String(v||'').toLocaleLowerCase().includes(q))));if(!searchOk)return false;
+ if(low===null&&high===null)return true;
+ return rows.some(r=>costKnown(r)&&r.people>0&&(low===null||dishUsed(r)/r.people>=low)&&(high===null||dishUsed(r)/r.people<=high));
+ });
+ // 依最新一筆有效紀錄的每人使用成本由低到高排序；缺少單價的菜色置底。
+ const latestCost=name=>{const rs=records.filter(r=>r.dish.trim()===name&&categoryMatch(r,costCategory)&&subtypeMatch(r,costCategory,costSubtype)).sort((a,b)=>String(b.date).localeCompare(String(a.date)));const r=rs[0];return r&&costKnown(r)&&r.people>0?dishUsed(r)/r.people:Infinity};
+ matches.sort((a,b)=>latestCost(a)-latestCost(b)||a.localeCompare(b,'zh-TW'));
+ $('costCount').textContent=`符合條件：${matches.length} 道菜（共 ${names.length} 道）· 每人成本由低到高`;
+ $('costButtons').innerHTML=matches.length?matches.map(name=>{const rows=records.filter(r=>r.dish.trim()===name&&categoryMatch(r,costCategory)).sort((a,b)=>b.date.localeCompare(a.date));return `<details class="cost-entry"><summary><span class="history-name">🍲 ${esc(name)}</span><span class="history-meta">${rows.length} 筆 · ${costKnown(rows[0])&&rows[0].people>0?'每人 $'+fmt(dishUsed(rows[0])/rows[0].people):'單價未齊'}　▼</span></summary><div class="cost-content">${rows.map(r=>`<details class="history-entry"><summary><span class="history-name">${esc(r.date)} · ${esc(r.category||'未分類')}${r.category==='主菜'?'／'+esc(r.subcategory||'未分類'):''} · ${esc(r.meal||'午餐')}</span><span class="history-meta">${costKnown(r)&&r.people>0?'每人使用 $'+fmt(dishUsed(r)/r.people):'單價未齊'} ▼</span></summary><div class="cost-content">${costBox(r)}<button type="button" class="cost-edit" data-id="${esc(r.id)}">✏️ 編輯食材與單價</button></div></details>`).join('')}</div></details>`}).join(''):'<p class="muted">沒有符合價格條件的菜色。</p>';
+}
+$('costButtons').addEventListener('click',e=>{const btn=e.target.closest('.cost-edit');if(!btn)return;const r=records.find(x=>x.id===btn.dataset.id);if(r)editRecord(r.id)});
+function showCost(){renderCost()}
+function renderMeal(){const sel=$('mealSelect'),v=sel.value,keys=[...new Set(records.map(r=>r.date+'|'+(r.meal||'午餐')))].sort().reverse();sel.innerHTML='<option value="">選擇日期及餐次</option>'+keys.map(k=>`<option value="${esc(k)}">${esc(k.replace('|','｜'))}</option>`).join('');if(keys.includes(v))sel.value=v;showMeal()}
+function showMeal(){const key=$('mealSelect').value,rs=records.filter(r=>r.date+'|'+(r.meal||'午餐')===key),out=$('mealResult');if(!rs.length){out.innerHTML='<p class="muted">請選擇餐次。</p>';return}const valid=rs.filter(costKnown),missing=rs.filter(r=>!costKnown(r)),total=valid.reduce((a,r)=>a+dishPurchase(r),0),used=valid.reduce((a,r)=>a+dishUsed(r),0),left=valid.reduce((a,r)=>a+dishLeft(r),0),same=rs.every(r=>r.people===rs[0].people);out.innerHTML=`<h2>${esc(key.replace('|','｜'))}</h2><p>${rs.length} 道菜</p>${missing.length?'<p class="warn">'+missing.length+' 道菜缺少單價；以下僅加總已完整定價菜色，非整餐完整成本。</p>':''}<div class="stat"><strong>採購成本 $${fmt(total)}</strong><p>使用成本 $${fmt(used)}｜剩餘價值 $${fmt(left)}</p>${same&&!missing.length?`<strong>每人採購 $${fmt(total/rs[0].people)}</strong><p>每人使用 $${fmt(used/rs[0].people)}（${fmt(rs[0].people)} 人）</p>`:'<p class="warn">菜色供餐人數不同或單價未齊全，無法直接計算完整整餐每人成本。</p>'}</div><div class="tablewrap"><table><tr><th>菜色</th><th>人數</th><th>採購成本</th><th>使用成本</th></tr>${rs.map(r=>`<tr><td>${esc(r.dish)}</td><td>${fmt(r.people)}</td><td>${costKnown(r)?'$'+fmt(dishPurchase(r)):'未定價'}</td><td>${costKnown(r)?'$'+fmt(dishUsed(r)):'未定價'}</td></tr>`).join('')}</table></div>`}
+function renderPrices(){const q=($('priceSearch')?.value||'').trim().toLocaleLowerCase('zh-TW');const entries=Object.entries(priceDB).filter(([key])=>key.replace('|','／').toLocaleLowerCase('zh-TW').includes(q));$('priceSearchCount').textContent=q?`找到 ${entries.length} 項符合「${q}」的食材`:`目前共有 ${entries.length} 項食材單價`; $('priceList').innerHTML=entries.sort((a,b)=>Number(a[1])-Number(b[1])||a[0].localeCompare(b[0],'zh-TW')).map(([key,v])=>`<div class="item"><b>${esc(key.replace('|','／'))}</b>　<span>單價：$${fmt(v)}</span> <button type="button" onclick="editPrice('${encodeURIComponent(key)}')">✏️ 編輯單價</button> <button type="button" class="danger" onclick="deletePrice('${encodeURIComponent(key)}')">刪除</button></div>`).join('')||(q?'<p class="muted">找不到符合的食材，請試試其他關鍵字。</p>':'<p class="muted">尚無食材單價，請先新增菜色並輸入價格。</p>')}
+function editPrice(encoded){const key=decodeURIComponent(encoded);if(!Object.prototype.hasOwnProperty.call(priceDB,key))return;const old=priceDB[key];const entered=prompt('修改「'+key.replace('|','／')+'」的單價（元）：',String(old));if(entered===null)return;const trimmed=entered.trim();if(trimmed===''||!Number.isFinite(Number(trimmed))||Number(trimmed)<0){alert('請輸入有效且不小於 0 的單價');return}priceDB[key]=Number(trimmed);savePrices();syncPriceToRecords(key,Number(trimmed));syncPriceToForm(key,Number(trimmed));renderPrices();alert('單價已更新！新增表單、歷史紀錄與成本計算已同步使用新價格。')}
+function deletePrice(key){delete priceDB[decodeURIComponent(key)];savePrices();renderPrices()}
+load();applyLibraryPrices();newForm();go('home',false);
+</script><script>
+function applyTheme(mode){document.documentElement.dataset.theme=mode;const b=document.getElementById('themeToggle');if(b)b.textContent=mode==='dark'?'☀️ 日間':'🌙 深夜';try{localStorage.setItem('catering-theme-v57',mode)}catch(e){}}
+function toggleTheme(){applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark')}
+(function(){let mode='dark';try{mode=localStorage.getItem('catering-theme-v57')||'dark'}catch(e){}applyTheme(mode)})();
+</script>
+<script>
+/* Keep original <select> elements as data sources, so existing calculation/change handlers still work. */
+(function(){
+let active=null, popup=null;
+function closeMenu(){
+ if(popup){popup.remove();popup=null}
+ if(active){active.classList.remove('is-open');active.querySelector('.custom-select-trigger')?.setAttribute('aria-expanded','false');active=null}
+}
+function refresh(w){
+ const s=w.querySelector('select'), t=w.querySelector('.custom-select-text');
+ if(!s||!t)return;
+ t.textContent=s.selectedOptions[0]?.textContent||s.options[0]?.textContent||'請選擇';
+ w.querySelector('.custom-select-trigger').disabled=s.disabled;
+}
+function openMenu(w){
+ if(active===w){closeMenu();return}
+ closeMenu();refresh(w);
+ const sel=w.querySelector('select'),btn=w.querySelector('.custom-select-trigger');
+ const menu=document.createElement('div');
+ menu.className='custom-select-menu';menu.setAttribute('role','listbox');menu.dataset.selectId=sel.id||'';
+ Array.from(sel.options).forEach((opt,i)=>{
+  const b=document.createElement('button');b.type='button';b.className='custom-option';
+  b.textContent=opt.textContent;b.title=opt.textContent;b.disabled=opt.disabled;
+  b.setAttribute('role','option');b.setAttribute('aria-selected',String(i===sel.selectedIndex));
+  b.addEventListener('click',()=>{
+   if(sel.selectedIndex!==i){sel.selectedIndex=i;sel.dispatchEvent(new Event('input',{bubbles:true}));sel.dispatchEvent(new Event('change',{bubbles:true}))}
+   refresh(w);closeMenu();btn.focus();
+  });menu.appendChild(b);
+ });
+ document.body.appendChild(menu);popup=menu;active=w;w.classList.add('is-open');btn.setAttribute('aria-expanded','true');
+ const r=btn.getBoundingClientRect(),maxW=Math.max(160,window.innerWidth-16);
+ const width=sel.id==='recordSelect'?Math.min(Math.max(r.width,470),maxW):Math.min(r.width,320,maxW);menu.style.width=width+'px';
+ let left=Math.max(8,Math.min(r.left,window.innerWidth-width-8));
+ menu.style.left=left+'px';
+ const spaceBelow=window.innerHeight-r.bottom-8,spaceAbove=r.top-8;
+ const menuH=Math.min(menu.scrollHeight,244,window.innerHeight-16);
+ menu.style.top=(spaceBelow>=Math.min(menuH,170)||spaceBelow>=spaceAbove?r.bottom+5:Math.max(8,r.top-menuH-5))+'px';
+ const selected=menu.querySelector('[aria-selected="true"]');if(selected)menu.scrollTop=Math.max(0,selected.offsetTop-menu.offsetTop-70);
+}
+function install(s){
+ if(s.classList.contains('custom-select-native')||s.closest('.custom-select-wrap'))return;
+ const wrap=document.createElement('div');wrap.className='custom-select-wrap';
+ s.parentNode.insertBefore(wrap,s);wrap.appendChild(s);s.classList.add('custom-select-native');
+ const btn=document.createElement('button');btn.type='button';btn.className='custom-select-trigger';
+ btn.setAttribute('aria-haspopup','listbox');btn.setAttribute('aria-expanded','false');
+ const label=document.createElement('span');label.className='custom-select-text';
+ const chev=document.createElement('span');chev.className='custom-select-chevron';chev.textContent='▾';
+ btn.append(label,chev);wrap.appendChild(btn);
+ btn.addEventListener('click',()=>openMenu(wrap));
+ btn.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeMenu();return}
+  if(e.key==='Enter'||e.key===' '||e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();openMenu(wrap)}
+ });
+ s.addEventListener('change',()=>refresh(wrap));
+ new MutationObserver(()=>refresh(wrap)).observe(s,{childList:true,subtree:true,attributes:true,attributeFilter:['selected','disabled']});
+ refresh(wrap);
+}
+function scan(root){
+ if(root.nodeType!==1)return;
+ if(root.matches?.('select'))install(root);
+ root.querySelectorAll?.('select:not(.custom-select-native)').forEach(install);
+}
+scan(document.body);
+const obs=new MutationObserver(mutations=>{
+ for(const m of mutations)for(const n of m.addedNodes){
+  if(n.nodeType!==1||n.classList?.contains('custom-select-menu')||n.closest?.('.custom-select-menu'))continue;
+  scan(n);
+ }
+});
+obs.observe(document.body,{childList:true,subtree:true});
+document.addEventListener('pointerdown',e=>{if(active&&!active.contains(e.target)&&!popup?.contains(e.target))closeMenu()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&active)closeMenu()});
+// Keep the menu open while the user scrolls its options with mouse wheel or touch.
+window.addEventListener('scroll',e=>{
+ if(!active||!popup)return;
+ // Scrolling the option list is expected and must never dismiss it.
+ if(e.target===popup||popup.contains(e.target))return;
+ // If the page itself scrolls, reposition the menu instead of dismissing it.
+ const btn=active.querySelector('.custom-select-trigger');
+ if(!btn)return;
+ const r=btn.getBoundingClientRect();
+ if(r.bottom<0||r.top>window.innerHeight){closeMenu();return;}
+ const width=popup.getBoundingClientRect().width;
+ popup.style.left=Math.max(8,Math.min(r.left,window.innerWidth-width-8))+'px';
+ const mh=popup.getBoundingClientRect().height;
+ const below=window.innerHeight-r.bottom-8,above=r.top-8;
+ popup.style.top=(below>=Math.min(mh,170)||below>=above?r.bottom+5:Math.max(8,r.top-mh-5))+'px';
+},true);
+// Let the menu consume wheel events without accidentally scrolling the page behind it.
+document.addEventListener('wheel',e=>{
+ if(!popup||!popup.contains(e.target))return;
+ e.stopPropagation();
+},{capture:true,passive:true});
+window.addEventListener('resize',closeMenu);
+})();
+</script>
+<script>if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script></body></html>
