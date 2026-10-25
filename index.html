@@ -623,6 +623,33 @@ html.v82-ready #v82Gate{display:none!important}
  html[data-theme="dark"].v82-ready #v82MobileNav{background:#111d29!important;border-top-color:#334a59!important}
 }
 </style>
+<style id="v82-android-portrait-scroll-fix">
+/* Android portrait: allow document-level vertical scrolling while keeping bottom navigation fixed. */
+@media (max-width:699px) and (orientation:portrait) {
+ html,html.v82-ready,body,html.v82-ready body{
+  height:auto!important;min-height:100%!important;max-height:none!important;
+  overflow-y:auto!important;overflow-x:hidden!important;
+  overscroll-behavior-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-y pinch-zoom!important;
+ }
+ html.v82-ready body{
+  min-height:100dvh!important;
+  padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))!important;
+ }
+ html.v82-ready main{
+  height:auto!important;min-height:0!important;max-height:none!important;
+  overflow:visible!important;touch-action:pan-y pinch-zoom!important;
+ }
+ html.v82-ready main section{
+  max-height:none!important;touch-action:pan-y pinch-zoom!important;
+ }
+ html.v82-ready #v82MobileNav{
+  position:fixed!important;bottom:0!important;top:auto!important;
+  touch-action:manipulation!important;
+ }
+}
+</style>
 </head><body><div id="v82Gate" role="region" aria-label="帳號登入">
 <div class="auth-card"><h1>🍱 團膳管理小管家 V8.2</h1><p>登入自己的帳號，安全使用獨立的叫貨紀錄與食材單價。</p>
 <label for="v82Email">Email</label><input id="v82Email" type="email" autocomplete="username" placeholder="請輸入 Email">
